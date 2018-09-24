@@ -40,6 +40,15 @@ declare abstract class JSON2CSVBase<T> {
     protected preprocessOpts(opts?: json2csv.Options<T>) : json2csv.Options<T>;
 
     /**
+     * Check and normalize the fields configuration.
+     *
+     * @param {(string|json2csv.FieldInfo<T>)[]} fields Fields configuration provided by the user
+     * or inferred from the data
+     * @returns {json2csv.FieldInfo<T>[]} preprocessed FieldsInfo array
+     */
+    protected preprocessFieldsInfo(fields: (string|json2csv.FieldInfo<T>)[]) : json2csv.FieldInfo<T>[]
+
+    /**
      * Create the title row with all the provided fields as column headings
      *
      * @returns {string} titles as a string
@@ -73,20 +82,11 @@ declare abstract class JSON2CSVBase<T> {
     /**
      * Create the content of a specfic CSV row cell
      *
-     * @param {object} row JSON object representing the  CSV row that the cell belongs to
-     * @param {json2csv.FieldInfo} fieldInfo Details of the field to process to be a CSV cell
-     * @returns {any} Field value
-     */
-    protected getValue(row: T, fieldInfo: json2csv.FieldInfo<T>): any;
-
-    /**
-     * Create the content of a specfic CSV row cell
-     *
      * @param {any} value Value to be included in a CSV cell
-     * @param {Boolean} stringify Details of the field to process to be a CSV cell
+     * @param {boolean} stringify Details of the field to process to be a CSV cell
      * @returns {string} Value stringified and processed
      */
-    protected processValue(value: any, stringify: Boolean): string;
+    protected processValue(value: any, stringify: boolean): string;
 
     /**
      * Performs the flattening of a data row recursively
@@ -102,7 +102,7 @@ declare abstract class JSON2CSVBase<T> {
      *
      * @param {object[]} dataRow Original JSON object
      * @param {string[]} unwindPaths The paths as strings to be used to deconstruct the array
-     * @returns {Array} Array of objects containing all rows after unwind of chosen paths
+     * @returns {object[]} Array of objects containing all rows after unwind of chosen paths
      */
     protected unwindData(dataRow: Array<T>, unwindPaths: Array<string>): Array<object>;
 }

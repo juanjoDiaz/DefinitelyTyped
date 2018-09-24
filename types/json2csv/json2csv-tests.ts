@@ -58,6 +58,8 @@ class ParserExt extends Parser<ExampleObj> {
         let opts: json2csv.Options<ExampleObj>;
         opts = this.preprocessOpts();
         opts = this.preprocessOpts(opts);
+        this.preprocessFieldsInfo([{ label: 'test' }]);
+        this.preprocessFieldsInfo([{ label: 'test', value: 'test' }]);
         s = this.getHeader();
         obj = this.preprocessRow({});
         obj = this.preprocessRow({ str: '', num: 1, obj: {} });
@@ -67,8 +69,6 @@ class ParserExt extends Parser<ExampleObj> {
         s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: 'field' });
         s = this.processCell({}, { label: 'test', default: 'test2', value: (row: object, field: string) => 'string' });
         s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: (row: object, field: string) => 'string' });
-        this.getValue({}, { label: 'test' });
-        this.getValue({ str: '', num: 1, obj: {} }, { label: 'test' });
         s = this.processValue(undefined, true);
         s = this.processValue(null, true);
         s = this.processValue(1, true);
@@ -92,6 +92,8 @@ class TransformExt extends Transform<ExampleObj> {
         let opts: json2csv.Options<ExampleObj>;
         opts = this.preprocessOpts();
         opts = this.preprocessOpts(opts);
+        this.preprocessFieldsInfo([{ label: 'test' }]);
+        this.preprocessFieldsInfo([{ label: 'test', value: 'test' }]);
         s = this.getHeader();
         obj = this.preprocessRow({});
         obj = this.preprocessRow({ str: '', num: 1, obj: {} });
@@ -101,8 +103,6 @@ class TransformExt extends Transform<ExampleObj> {
         s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: 'field' });
         s = this.processCell({}, { label: 'test', default: 'test2', value: (row: object, field: string) => 'string' });
         s = this.processCell({ str: '', num: 1, obj: {} }, { label: 'test', default: 'test2', value: (row: object, field: string) => 'string' });
-        this.getValue({}, { label: 'test' });
-        this.getValue({ str: '', num: 1, obj: {} }, { label: 'test' });
         s = this.processValue(undefined, true);
         s = this.processValue(null, true);
         s = this.processValue(1, true);
